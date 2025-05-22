@@ -12,6 +12,68 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet">
+
+  <style>
+    /* Slider container styles */
+    .price-slider-container {
+      margin: 25px 0;
+    }
+    
+    /* Slider track styles */
+    .price-range {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 4px;
+      background: #e0e0e0;
+      outline: none;
+      margin: 15px 0;
+    }
+    
+    /* Filled portion of the track */
+    .price-range::-webkit-slider-runnable-track {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #4CAF50 0%, #4CAF50 var(--fill-percent, 50%), #e0e0e0 var(--fill-percent, 50%), #e0e0e0 100%);
+    }
+    
+    /* Slider thumb (handle) */
+    .price-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #4CAF50;
+      cursor: pointer;
+      margin-top: -8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border: 2px solid white;
+    }
+    
+    /* Price display */
+    .price-display {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #4CAF50;
+      margin: 10px 0;
+    }
+    
+    /* Min/Max labels */
+    .min-max-labels {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: -10px;
+    }
+
+    .panel.intro .jumplink.pic {
+        display: block;
+        width: 100%;
+    }
+</style>
+  </style>
 	</head>
 	<script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox-plus-jquery.min.js"></script>
 	<body class="is-preload">
@@ -198,27 +260,146 @@
 								<header>
 									<h2>Contactame</h2>
 								</header>
-								<form action="#" method="post">
-									<div>
-										<div class="row">
-											<div class="col-6 col-12-medium">
-												<input type="text" name="Nombre" placeholder="Nombre" />
-											</div>
-											<div class="col-6 col-12-medium">
-												<input type="text" name="Numero" placeholder="Numero de Telefono" />
-											</div>
-											<div class="col-12">
-												<input type="text" name="Evento o Orden" placeholder="Evento o Orden" />
-											</div>
-											<div class="col-12">
-												<textarea name="Mensaje" placeholder="Mensaje" rows="6"></textarea>
-											</div>
-											<div class="col-12">
-												<input type="submit" value="Enviar" />
-											</div>
-										</div>
-									</div>
-								</form>
+<form
+  action="https://formspree.io/f/xkgravld"
+  method="POST"
+>
+  <label>
+    Nombre:
+    <input type="text" name="Nombre">
+  </label>
+  <br><br>
+  <label>
+    Tu número de teléfono:
+    <input type="tel" name="numero de telefono">
+  </label>
+  <br><br>
+
+<label>
+  Tipo de orden:
+  <select name="Tipo de Orden" id="tipoOrden" required>
+    <option value="">Selecciona una opción</option>
+    <option value="Galletas">Galletas</option>
+    <option value="Pasteles">Pasteles</option>
+    <option value="Panes">Panes</option>
+    <option value="Evento Especial">Evento Especial - Grupos de diez o más</option>
+    <option value="Pasteles Personalizados">Pasteles Personalizados</option>
+    <option value="Otro">Otro</option>
+  </select>
+</label>
+
+<div id="otroTextBoxContainer" style="display: none;">
+  <label style="padding-left: 50px;">
+    Por favor especifica:
+    <input type="text" name="Otra Orden">
+  </label>
+</div>
+
+<script>
+  const tipoOrden = document.getElementById("tipoOrden");
+  const otroContainer = document.getElementById("otroTextBoxContainer");
+
+  tipoOrden.addEventListener("change", function () {
+    if (this.value === "Otro") {
+      otroContainer.style.display = "block";
+    } else {
+      otroContainer.style.display = "none";
+    }
+  });
+</script>
+
+
+    <label>
+    Tamaño o cantidad:
+    <select name="Tipo de Orden" required>
+      <option value="">Selecciona una opción</option>
+      <option value="Chico">Chico (5" x 9" redondo) o 10 o menos piezas</option>
+      <option value="Mediano">Mediano (6" x 9" x 12" rectangulo) o 20 a 40 piezas</option>
+      <option value="Grande">Grande (6" x 13" x 18" rectangulo) o 40 o mas piezas</option>
+      <option value="Otro">Otro</option>
+    </select>
+  </label>
+  <br><br>
+
+  <label>
+  Elige un color(Para pastel):
+  <select name="Pastel Color" id="pastelColorSelect" onchange="changePreviewColor()">
+	<option value="">Selecciona una opción</option>
+    <option value="#Rosado">Rosado</option>
+    <option value="#Durazno">Durazno</option>
+    <option value="#Amarillo Claro">Amarillo Claro</option>
+    <option value="#Verde Menta">Verde Menta</option>
+    <option value="#Azul Cielo">Azul Cielo</option>
+    <option value="#Lavanda">Lavanda</option>
+    <option value="#Blanco">Blanco</option>
+	<option value="#Varios">Varios</option>
+  </select>
+</label>
+
+  <label>
+  Elige un sabor:
+  <select name="Pastel Sabor" id="pastelSaborSelect" onchange="changePreviewColor()">
+	<option value="">Selecciona una opción</option>
+    <option value="#Vanilla">Vainilla</option>
+    <option value="#Chocolate">Chocolate</option>
+    <option value="#Strawberry">Fresa</option>
+    <option value="#Confetti">Confeti</option>
+  </select>
+</label>
+
+  <label>
+  Tres Leches:
+  <select name="Pastel Color" id="pastelTresLeches" onchange="changePreviewColor()">
+	<option value="">Selecciona una opción</option>
+    <option value="#Tres Leches">Tres Leches</option>
+    <option value="#Normal">Normal</option>
+  </select>
+</label>
+
+  <label for="event-date">Dia del Evento:</label>
+  <input type="date" id="event-date" name="event-date" required>
+
+      <div class="price-slider-container">
+        <div class="slider-header">
+          <label for="price-range">Dinos cuánto buscas pagar:</label>
+          <span>Slide to adjust</span>
+        </div>
+        <input type="range" id="price-range" name="price-range" 
+               class="price-range" min="0" max="300" value="300" step="10">
+        <div class="min-max-labels">
+          <span>$0</span>
+          <span>$300</span>
+        </div>
+        <div class="price-display">$<span id="price-value">300</span></div>
+        <input type="hidden" id="price-submit" name="price" value="300">
+      </div>
+
+
+  <script>
+    const priceSlider = document.getElementById('price-range');
+    const priceDisplay = document.getElementById('price-value');
+    const priceSubmit = document.getElementById('price-submit');
+    
+    // Update display and fill percentage
+    function updateSlider() {
+      const value = priceSlider.value;
+      const max = priceSlider.max;
+      const fillPercent = (value / max) * 100;
+      
+      priceDisplay.textContent = value;
+      priceSubmit.value = value;
+      
+      // Update the fill color of the track
+      priceSlider.style.setProperty('--fill-percent', `${fillPercent}%`);
+    }
+    
+    // Initialize and add event listener
+    updateSlider();
+    priceSlider.addEventListener('input', updateSlider);
+  </script>
+
+  <button type="submit">Enviar</button>
+</form>
 							</article>
 
 					</div>
@@ -226,7 +407,7 @@
 				<!-- Footer -->
 					<div id="footer">
 						<ul class="copyright">
-							<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li>&copy; Laura Barcenas.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</div>
 
